@@ -2,6 +2,20 @@ import { useState } from 'react'
 import './App.css'
 import { damageTable, COLUMNS, DamageSystem } from './damageTable'
 
+const ROLL_DICE: Record<number, string> = {
+  2:  '⚀⚀',
+  3:  '⚀⚁',
+  4:  '⚀⚂|⚁⚁',
+  5:  '⚀⚃|⚁⚂',
+  6:  '⚀⚄|⚁⚃|⚂⚂',
+  7:  '⚀⚅|⚁⚄|⚂⚃',
+  8:  '⚁⚅|⚂⚄|⚃⚃',
+  9:  '⚂⚅|⚃⚄',
+  10: '⚃⚅|⚄⚄',
+  11: '⚄⚅',
+  12: '⚅⚅',
+}
+
 function App() {
   const [damageInput, setDamageInput] = useState<string>('1')
   const [rollResults, setRollResults] = useState<number[]>([])
@@ -37,6 +51,16 @@ function App() {
     const damageRow = damageTable[roll]
     if (!damageRow || columnIndex >= damageRow.length) return []
     return damageRow[columnIndex]
+  }
+
+  const normalizeSystemName = (name: string): string => {
+    return name
+      .replace(/\bF Hull\b/g, 'Forward Hull')
+      .replace(/\bA Hull\b/g, 'Aft Hull')
+      .replace(/\b(Left|Right|Center|Any) W En\b/g, '$1 Warp Engine')
+      .replace(/\bTrans\b/g, 'Transporter')
+      .replace(/\bTorp\b/g, 'Torpedo')
+      .replace(/\bTractor\b/g, 'Tractor Beam')
   }
 
   const handleNextColumn = (rollIndex: number) => {
@@ -85,7 +109,8 @@ function App() {
   const systemTally: Record<string, number> = rollResults.reduce((tally, roll, rollIndex) => {
     const col = columnIndices[rollIndex] ?? 0
     getSystemsForRoll(roll, col).forEach(system => {
-      tally[system.name] = (tally[system.name] || 0) + 1
+      const normalizedName = normalizeSystemName(system.name)
+      tally[normalizedName] = (tally[normalizedName] || 0) + 1
     })
     return tally
   }, {} as Record<string, number>)
@@ -130,7 +155,10 @@ function App() {
                       style={{ width: `${Math.round((count / maxRollCount) * 100)}%` }}
                       aria-hidden="true"
                     />
-                    <span className="roll-tally-label">Roll {value}</span>
+                    <span className="roll-tally-label">
+                      <span className="roll-tally-glyph">{ROLL_DICE[value] ?? value}</span>
+                      <span className="roll-tally-value">({value})</span>
+                    </span>
                     <span className="roll-tally-count">×{count}</span>
                   </a>
                 </li>
@@ -146,7 +174,10 @@ function App() {
               return (
                 <div key={value} id={`roll-card-${value}`} className={`roll-row${isCardConflicting(value) ? ' roll-row--conflict' : ''}`}>
                   <div className="roll-header">
-                    <span className="roll-number">Row {value}</span>
+                    <span className="roll-number">
+                      <span className="roll-number-glyph">{ROLL_DICE[value] ?? value}</span>
+                      <span className="roll-number-value">({value})</span>
+                    </span>
                   </div>
                   <div className="roll-instance-list">
                     {groupIndices.map((rollIndex) => {
@@ -179,7 +210,7 @@ function App() {
                               <ul>
                                 {systems.map((system, systemIndex) => (
                                   <li key={systemIndex} className={system.isBold ? 'bold-system' : ''}>
-                                    {system.name}{system.isBold ? ' (Once per turn)' : ''}
+                                    {normalizeSystemName(system.name)}{system.isBold ? ' (Once per turn)' : ''}
                                   </li>
                                 ))}
                               </ul>

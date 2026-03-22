@@ -104,9 +104,22 @@ input:focus {
 }
 
 .roll-number {
-  font-weight: 700;
-  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   color: #646cff;
+  line-height: 1;
+}
+
+.roll-number-glyph {
+  font-size: 2.25rem;
+  line-height: 1;
+}
+
+.roll-number-value {
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1;
 }
 
 .systems-list {
@@ -155,7 +168,8 @@ input:focus {
 }
 
 .roll-instance-row {
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin: 0 -1rem;
   border: 1px solid rgba(100, 108, 255, 0.25);
   border-radius: 6px;
 }
@@ -173,7 +187,8 @@ input:focus {
 
 .roll-instance-label {
   display: inline-block;
-  min-width: 10ch;
+  width: 7ch;
+  flex-shrink: 0;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   align-self: center;
@@ -193,6 +208,7 @@ input:focus {
 
 .systems-list--inline li {
   padding: 0.55rem 0.75rem;
+  white-space: nowrap;
 }
 
 .column-badge {
@@ -237,11 +253,22 @@ input:focus {
 @media (max-width: 720px) {
   .roll-instance-main {
     flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
   .roll-controls--inline {
     width: 100%;
-    justify-content: space-between;
+    justify-content: center;
+  }
+
+  .systems-list--inline {
+    width: 100%;
+    align-items: center;
+  }
+
+  .systems-list--inline ul {
+    align-items: center;
   }
 }
 
@@ -290,7 +317,20 @@ input:focus {
 }
 
 .roll-tally-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   font-weight: 500;
+}
+
+.roll-tally-glyph {
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.roll-tally-value {
+  font-size: 1rem;
+  line-height: 1;
 }
 
 .roll-tally-count {
