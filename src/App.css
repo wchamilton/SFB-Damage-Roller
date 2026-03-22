@@ -148,6 +148,44 @@ input:focus {
   padding: 0.75rem 0;
 }
 
+.roll-instance-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.roll-instance-row {
+  padding: 0.5rem;
+  border: 1px solid rgba(100, 108, 255, 0.25);
+  border-radius: 6px;
+}
+
+.roll-instance-row--conflict {
+  border-color: rgba(229, 57, 53, 0.85);
+  background: rgba(229, 57, 53, 0.08);
+}
+
+.roll-instance-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.roll-controls--inline {
+  padding: 0;
+  justify-content: flex-start;
+  flex-shrink: 0;
+}
+
+.systems-list--inline {
+  min-height: 0;
+  align-items: flex-start;
+}
+
+.systems-list--inline li {
+  padding: 0.55rem 0.75rem;
+}
+
 .column-badge {
   display: inline-block;
   background: #646cff;
@@ -185,6 +223,17 @@ input:focus {
 .roll-row--conflict {
   border-color: #e53935 !important;
   background: rgba(229, 57, 53, 0.07) !important;
+}
+
+@media (max-width: 720px) {
+  .roll-instance-main {
+    flex-direction: column;
+  }
+
+  .roll-controls--inline {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
 
 /* Roll value summary (collapsible) */
