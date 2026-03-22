@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# TypeScript build artifacts
+*.tsbuildinfo
+
+# Generated from vite.config.ts by local TypeScript build
+vite.config.js
+vite.config.d.ts

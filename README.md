@@ -1,60 +1,44 @@
-# SFB Damage Allocation
+# SFB Damage Roller
 
-A React + TypeScript + Vite application for allocating damage in Starfleet Battles, with dropdown selection, numerical input, and 2d6 dice rolling functionality.
+A web app for rolling damage and looking up affected systems in Starfleet Battles using the official damage allocation table.
 
 ## Features
 
-- **Item Selection**: Dropdown menu to select the target item
-- **Damage Input**: Numerical input field for damage amount (1-20)
-- **Dice Rolling**: Rolls 2d6 N times based on the damage input
-- **Console Logging**: All rolls are logged to the browser console for debugging
+- **2d6 Dice Rolling**: Roll the dice multiple times to determine which systems are affected
+- **Damage Table Lookup**: Automatically displays all affected systems based on your roll results
+- **Column Navigation**: Cycle through damage columns (A-M) for each roll to see all possible system hits
+- **"Once Per Turn" Indicator**: Bold systems marked as "(Once per turn)" to help track which can only be damaged once per turn sequence
+- **Mobile-Friendly**: Works great on desktop and mobile devices
+- **Offline Support**: Once loaded, the app works completely offline as a Progressive Web App (PWA)
 
-## Getting Started
+## How to Use
 
-### Prerequisites
+### Access the App
 
-- Node.js (v16 or higher)
-- npm
+Visit the live app here: **[SFB Damage Roller](https://wchamilton.github.io/SFB-Damage-Roller/)**
 
-### Installation
+### Using the App
 
-```bash
-npm install
-```
+1. **Enter Damage Amount**: Type how many times you want to roll 2d6 (1-999)
+2. **Click "Roll Dice"**: The app rolls that many times and displays each result
+3. **View Results**: For each roll, you'll see:
+   - The die roll result (2-12)
+   - The systems affected in the current column
+   - Previous/Next buttons to cycle through columns A-M
+4. **Cycle Through Columns**: Use the arrow buttons to see what systems are affected in each column
+5. **Roll Again**: Click "Roll Again" to start over
 
-### Development
+### Install as App (PWA)
 
-```bash
-npm run dev
-```
+On supported browsers (Chrome, Edge, Safari), you can install this app:
 
-This will start the development server on `http://localhost:5173`
+1. Visit the app link above
+2. Click the install icon (browser-dependent location)
+3. The app appears on your home screen
+4. No internet connection needed after installation!
 
-### Build
+## About the Damage Table
 
-```bash
-npm run build
-```
+The damage allocation chart is based on the official Starfleet Battles rules. Each die roll (2-12) maps to a specific row, and each column (A-M) shows which ship systems are damaged.
 
-This will create an optimized production build in the `dist` folder.
-
-### Preview
-
-```bash
-npm run preview
-```
-
-This will preview the production build locally.
-
-## Usage
-
-1. Select an item from the dropdown menu
-2. Enter the damage amount in the input field (1-20)
-3. Click "Confirm & Roll Dice" button
-4. Check the browser console for the dice roll results
-
-The console will display:
-- Selected item
-- Damage amount
-- Individual 2d6 rolls
-- Total damage sum
+**Bold items with "(Once per turn)"** can only be damaged once per damage sequence – when rolling subsequent columns for the same row, these systems should be skipped.
