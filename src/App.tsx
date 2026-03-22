@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import { damageTable, COLUMNS, DamageSystem } from './damageTable'
 
@@ -7,22 +7,6 @@ function App() {
   const [rollResults, setRollResults] = useState<number[]>([])
   const [columnIndices, setColumnIndices] = useState<number[]>([])
   const [showResults, setShowResults] = useState<boolean>(false)
-  const [showOfflineReady, setShowOfflineReady] = useState<boolean>(false)
-
-  useEffect(() => {
-    const handleOfflineReady = () => {
-      if (sessionStorage.getItem('sfb-offline-toast-shown') === '1') {
-        return
-      }
-
-      sessionStorage.setItem('sfb-offline-toast-shown', '1')
-      setShowOfflineReady(true)
-      window.setTimeout(() => setShowOfflineReady(false), 3500)
-    }
-
-    window.addEventListener('pwa-offline-ready', handleOfflineReady)
-    return () => window.removeEventListener('pwa-offline-ready', handleOfflineReady)
-  }, [])
 
   const rollDice = () => {
     const parsed = Number.parseInt(damageInput, 10)
@@ -85,7 +69,6 @@ function App() {
   if (showResults) {
     return (
       <div className="container">
-        {showOfflineReady && <div className="offline-toast">Offline ready</div>}
         <h1>SFB Damage Allocation</h1>
         
         <div className="results-section">
@@ -140,7 +123,6 @@ function App() {
 
   return (
     <div className="container">
-      {showOfflineReady && <div className="offline-toast">Offline ready</div>}
       <h1>SFB Damage Allocation</h1>
       
       <div className="form-group">
