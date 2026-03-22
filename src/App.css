@@ -181,6 +181,130 @@ input:focus {
   cursor: not-allowed;
 }
 
+/* Conflict highlight – once-per-turn cell duplicated in same roll+column */
+.roll-row--conflict {
+  border-color: #e53935 !important;
+  background: rgba(229, 57, 53, 0.07) !important;
+}
+
+/* Roll value summary (collapsible) */
+.roll-tally-section {
+  border: 2px solid rgba(100, 108, 255, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.roll-tally-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  background: rgba(100, 108, 255, 0.08);
+  border: none;
+  color: #646cff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s;
+}
+
+.roll-tally-toggle:hover {
+  background: rgba(100, 108, 255, 0.16);
+}
+
+.roll-tally-chevron {
+  font-size: 0.7rem;
+}
+
+.roll-tally-list {
+  list-style: none;
+  padding: 0.5rem 1.25rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.roll-tally-item {
+  font-size: 0.875rem;
+}
+
+.roll-tally-label {
+  font-weight: 500;
+}
+
+.roll-tally-count {
+  font-weight: 700;
+  color: #646cff;
+}
+
+.roll-tally-item {
+  padding: 0;
+}
+
+.roll-tally-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 0.75rem;
+  background: rgba(100, 108, 255, 0.04);
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s;
+}
+
+.roll-tally-link:hover {
+  background: rgba(100, 108, 255, 0.15);
+}
+
+/* Systems Damaged tally */
+.tally-section {
+  padding: 1.25rem 1.5rem;
+  background: rgba(100, 108, 255, 0.03);
+  border: 2px solid rgba(100, 108, 255, 0.2);
+  border-radius: 8px;
+}
+
+.tally-title {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #646cff;
+}
+
+.tally-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.tally-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0.75rem;
+  background: rgba(100, 108, 255, 0.05);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.tally-name {
+  font-weight: 500;
+}
+
+.tally-count {
+  font-weight: 700;
+  color: #646cff;
+  min-width: 2rem;
+  text-align: right;
+}
+
 @media (prefers-color-scheme: light) {
   select,
   input {
