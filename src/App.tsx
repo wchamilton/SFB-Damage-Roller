@@ -3,7 +3,7 @@ import './App.css'
 import { damageTable, COLUMNS, DamageSystem } from './damageTable'
 
 function App() {
-  const [damageAmount, setDamageAmount] = useState<number>(1)
+  const [damageInput, setDamageInput] = useState<string>('1')
   const [rollResults, setRollResults] = useState<number[]>([])
   const [columnIndices, setColumnIndices] = useState<number[]>([])
   const [showResults, setShowResults] = useState<boolean>(false)
@@ -25,6 +25,13 @@ function App() {
   }, [])
 
   const rollDice = () => {
+    const parsed = Number.parseInt(damageInput, 10)
+    const damageAmount = Number.isFinite(parsed) ? Math.min(999, Math.max(1, parsed)) : 1
+
+    if (damageInput !== String(damageAmount)) {
+      setDamageInput(String(damageAmount))
+    }
+
     const rolls: number[] = []
     for (let i = 0; i < damageAmount; i++) {
       const die1 = Math.floor(Math.random() * 6) + 1
@@ -140,11 +147,12 @@ function App() {
         <label htmlFor="damage-input">Damage Amount:</label>
         <input
           id="damage-input"
-          type="number"
-          min="1"
-          max="999"
-          value={damageAmount}
-          onChange={(e) => setDamageAmount(Math.max(1, parseInt(e.target.value) || 1))}
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          value={damageInput}
+          onChange={(e) => setDamageInput(e.target.value.replace(/\D/g, ''))}
+          onKeyDown={(e) => { if (e.key === 'Enter') rollDice() }}
         />
       </div>
 
