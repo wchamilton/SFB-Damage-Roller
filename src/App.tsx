@@ -93,6 +93,15 @@ function App() {
   const tallyEntries = Object.entries(systemTally).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
 
   const rollValueEntries = uniqueSortedValues.map(v => [v, (rollIndicesByValue[v] ?? []).length] as [number, number])
+  const maxRollCount = rollValueEntries.reduce((max, [, count]) => Math.max(max, count), 1)
+  const displayNumbersByIndex: Record<number, number> = {}
+  let displayCounter = 1
+  uniqueSortedValues.forEach((value) => {
+    (rollIndicesByValue[value] ?? []).forEach((rollIndex) => {
+      displayNumbersByIndex[rollIndex] = displayCounter
+      displayCounter++
+    })
+  })
 
   if (showResults) {
     return (
@@ -105,7 +114,7 @@ function App() {
             onClick={() => setRollTallyOpen(o => !o)}
             aria-expanded={rollTallyOpen}
           >
-            <span>Roll Summary</span>
+            <span>Roll Summary ({rollResults.length} rolls)</span>
             <span className="roll-tally-chevron">{rollTallyOpen ? '▲' : '▼'}</span>
           </button>
           {rollTallyOpen && (
@@ -116,6 +125,11 @@ function App() {
                     href={`#roll-card-${value}`}
                     className="roll-tally-link"
                   >
+                    <span
+                      className="roll-tally-bar"
+                      style={{ width: `${Math.round((count / maxRollCount) * 100)}%` }}
+                      aria-hidden="true"
+                    />
                     <span className="roll-tally-label">Roll {value}</span>
                     <span className="roll-tally-count">×{count}</span>
                   </a>
@@ -129,11 +143,10 @@ function App() {
           <div className="rolls-container">
             {uniqueSortedValues.map(value => {
               const groupIndices = rollIndicesByValue[value] ?? []
-              const count = groupIndices.length
               return (
                 <div key={value} id={`roll-card-${value}`} className={`roll-row${isCardConflicting(value) ? ' roll-row--conflict' : ''}`}>
                   <div className="roll-header">
-                    <span className="roll-number">Roll {value}{count > 1 ? ` ×${count}` : ''}</span>
+                    <span className="roll-number">Row {value}</span>
                   </div>
                   <div className="roll-instance-list">
                     {groupIndices.map((rollIndex) => {
@@ -142,6 +155,7 @@ function App() {
                       return (
                         <div key={rollIndex} className={`roll-instance-row${isInstanceConflicting(value, rollIndex) ? ' roll-instance-row--conflict' : ''}`}>
                           <div className="roll-instance-main">
+                            <span className="roll-instance-label">Hit: {displayNumbersByIndex[rollIndex]}</span>
                             <div className="roll-controls roll-controls--inline">
                               <button
                                 onClick={() => handlePreviousColumn(rollIndex)}

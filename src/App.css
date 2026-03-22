@@ -171,10 +171,19 @@ input:focus {
   gap: 0.75rem;
 }
 
+.roll-instance-label {
+  display: inline-block;
+  min-width: 10ch;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  align-self: center;
+}
+
 .roll-controls--inline {
   padding: 0;
   justify-content: flex-start;
   flex-shrink: 0;
+  align-self: center;
 }
 
 .systems-list--inline {
@@ -294,15 +303,34 @@ input:focus {
 }
 
 .roll-tally-link {
+  position: relative;
+  overflow: hidden;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.75rem;
   padding: 0.65rem 0.75rem;
   background: rgba(100, 108, 255, 0.04);
   border-radius: 4px;
   text-decoration: none;
   color: inherit;
   transition: background 0.2s;
+}
+
+.roll-tally-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: linear-gradient(90deg, rgba(100, 108, 255, 0.32), rgba(100, 108, 255, 0.14));
+  pointer-events: none;
+}
+
+.roll-tally-label,
+.roll-tally-count {
+  position: relative;
+  z-index: 1;
 }
 
 .roll-tally-link:hover {
